@@ -14,6 +14,7 @@ import AboutUs from "./components/AboutUs"
 import ContactUs from "./components/ContactUs"
 import PrivacyPolicy from "./components/PrivacyPolicy"
 import TermsOfService from "./components/TermsOfServices"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 function App() {
   return (
@@ -22,14 +23,14 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<SignUp/>}/>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/product/:id" element={<ProductItemDetails/>}/>
-        <Route path="/product/category/:category" element={<ProductCategoryDetails/>}/>
-        <Route path="/cart" element={<Cart/>}/>
-        <Route path="/wishlist" element={<Wishlist/>}></Route>
-        <Route path="/profile" element={<ProfilePage/>}></Route>
-        <Route path="/order-confirmation" element={<OrderConfirmation/>}></Route>
-        <Route path="/search" element={<SearchPage/>}></Route>
+        <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+        <Route path="/product/:id" element={<ProtectedRoute><ProductItemDetails/></ProtectedRoute>}/>
+        <Route path="/product/category/:category" element={<ProtectedRoute><ProductCategoryDetails/></ProtectedRoute>}/>
+        <Route path="/cart" element={<ProtectedRoute><Cart/></ProtectedRoute>}/>
+        <Route path="/wishlist" element={<ProtectedRoute><Wishlist/></ProtectedRoute>}></Route>
+        <Route path="/profile" element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}></Route>
+        <Route path="/order-confirmation" element={<ProtectedRoute><OrderConfirmation/></ProtectedRoute>}></Route>
+        <Route path="/search" element={<ProtectedRoute><SearchPage/></ProtectedRoute>}></Route>
         <Route path="/about" element={<AboutUs/>}></Route>
         <Route path="/contact-us" element={<ContactUs/>}></Route>
         <Route path="/privacy-policy" element={<PrivacyPolicy/>}></Route>

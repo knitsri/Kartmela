@@ -6,7 +6,7 @@ import { Filter, ArrowLeft,  ChevronLeft, ChevronRight } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 import ProductCard from './ProductCard'
 
-
+const apiUrl = import.meta.env.VITE_Backend_URL;
 
 function ProductCategoryDetails() {
     const { category } = useParams()
@@ -35,7 +35,7 @@ function ProductCategoryDetails() {
             "Authorization": `Bearer ${jwtToken}`
           }
         }
-        const url = `http://localhost:5000/api/getCategoryDetails/${category}?page=${currentPage}&limit=5&sort=${sortOption}&price=${priceFilter}`
+        const url = `${apiUrl}/api/getCategoryDetails/${category}?page=${currentPage}&limit=5&sort=${sortOption}&price=${priceFilter}`
         const response = await fetch(url, options)
         const data = await response.json()
         console.log(data)
@@ -66,7 +66,7 @@ function ProductCategoryDetails() {
 
   async function handleWishlistBtn(id){
         setLikedProducts(prev => ({...prev,[id]:!prev[id]}))
-        const url= "http://localhost:5000/api/wishlist/addToWishlist"
+        const url= `${apiUrl}/api/wishlist/addToWishlist`
         const options = {
           method : "POST",
           headers : {
@@ -87,7 +87,7 @@ function ProductCategoryDetails() {
           "Authorization" : `Bearer ${jwtToken}`
          }
       }
-      const url="http://localhost:5000/api/wishlist/getWishList"
+      const url= `${apiUrl}/api/wishlist/getWishList`
       const response = await fetch(url,options)
       const data = await response.json()
       console.log(data)

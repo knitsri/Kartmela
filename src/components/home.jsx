@@ -9,6 +9,8 @@ import Categories from "./Categories";
 import BestSellers from "./BestSellers";
 import Footer from "./Footer";
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function Home() {
   const [bestSellersData, setBestSellersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +50,7 @@ function Home() {
 
   useEffect(() => {
     async function getBestSellersData() {
-       const url = "http://localhost:5000/api/bestSellers";
+       const url = `${apiUrl}/api/bestSellers`;
       const response = await fetch(url);
       const data = await response.json();
       setBestSellersData(data);
@@ -59,7 +61,7 @@ function Home() {
 
   useEffect(() => {
     async function getCategories() {
-      const url = "http://localhost:5000/api/category"
+      const url = `${apiUrl}/api/category`
       const response = await fetch(url)
       const data = await response.json()
       setCategories(data)
@@ -102,7 +104,6 @@ function Home() {
           </div>
 
         )}
-      {/* <Categories settings={settings}/> */}
       
       <div className="mt-16 px-10 mb-16">
         <h1 className="font-bold text-[25px] mb-8 text-center relative pb-3">

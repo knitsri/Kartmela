@@ -4,6 +4,9 @@ import Cookies from "js-cookie"
 import { Star } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
+
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function SearchPage() {
   const location = useLocation()
   const userInput = location.state?.userInput || ""
@@ -11,6 +14,7 @@ function SearchPage() {
   const [isLoading, setIsLoading] = useState(true)
   const jwtToken = Cookies.get('jwt_token')
   const navigate = useNavigate()
+
   useEffect(() => {
     async function getSearchResults() {
       const options = {
@@ -19,7 +23,7 @@ function SearchPage() {
           "Authorization": `Bearer ${jwtToken}`
         }
       }
-      const url = `http://localhost:5000/api/products/search/${userInput}`
+      const url = `${apiUrl}/api/products/search/${userInput}`
       const response = await fetch(url, options)
       const data = await response.json()
       console.log(data)

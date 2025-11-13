@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {  Star, ShoppingCart } from "lucide-react";
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function BestSellers(props) {
   const {product} = props 
   const jwtToken = Cookies.get('jwt_token')
   const navigate = useNavigate()
-
-  
 
    async function handleAddToCart(id){
     const options = {
@@ -20,7 +20,7 @@ function BestSellers(props) {
       },
       body : JSON.stringify({productId:id , quantity : 1})
     }
-    const url = "http://localhost:5000/api/cart/addProduct"
+    const url = `${apiUrl}/api/cart/addProduct`
     const response = await fetch(url,options)
     const data = await response.json()
     console.log(data)

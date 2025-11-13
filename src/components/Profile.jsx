@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { Trash2, Mail, Phone } from "lucide-react";
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function ProfilePage() {
 
   useEffect(() => {
     async function getUserOrders() {
-        const url = "http://localhost:5000/api/orders/user-orders";
+        const url = `${apiUrl}/api/orders/user-orders`;
         const options = {
           headers: {
             "Authorization": `Bearer ${jwtToken}`
@@ -39,7 +40,7 @@ function ProfilePage() {
             "Authorization" : `Bearer ${jwtToken}`
           }
         }
-        const url = "http://localhost:5000/auth/api/user-details"
+        const url = `${apiUrl}/auth/api/user-details`
         const response =  await fetch(url,options)
         const data = await response.json()
         setUser(data)
@@ -56,7 +57,7 @@ function ProfilePage() {
       "AUthorization" : `Bearer ${jwtToken}`
      }
     }
-    const url = "http://localhost:5000/auth/api/delete/user"
+    const url = `${apiUrl}/auth/api/delete/user`
     await fetch(url,options)
     Cookies.remove('jwt_token')
     navigate("/signup")

@@ -4,9 +4,12 @@ import {useState,useEffect} from "react"
 import { Heart, ArrowLeft, ShoppingCart, Trash2, Star, Eye } from 'lucide-react'
 import Cookies from "js-cookie"
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function Wishlist() {
    const navigate = useNavigate()
    const [wishlist,setWishlist] = useState([])
+   const [isLoading,setIsLoading] = useState(true)
    const jwtToken = Cookies.get("jwt_token")
 
    useEffect(() => {
@@ -16,17 +19,18 @@ function Wishlist() {
           "Authorization" : `Bearer ${jwtToken}`
          }
       }
-      const url="http://localhost:5000/api/wishlist/getWishList"
+      const url= `${apiUrl}/api/wishlist/getWishList`
       const response = await fetch(url,options)
       const data = await response.json()
       console.log(data)
       setWishlist(data.products)
+      setIsLoading(false)
     }
     getWishList()
    },[])
 
    async function handleAddToCart(id){
-     const url = "http://localhost:5000/api/cart/addProduct"
+     const url = `${apiUrl}/api/cart/addProduct`
      const options = {
       method : "POST",
       headers : {
@@ -50,14 +54,23 @@ function Wishlist() {
       },
       body : JSON.stringify({productId:id})
     }
-    const url= "http://localhost:5000/api/wishlist/deleteProduct"
+    const url= `${apiUrl}/api/wishlist/deleteProduct`
     const response = await fetch(url,options)
     const data = await  response.json()
     console.log(data)
     setWishlist(data.products)
   }
 
+   if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-pulse text-pink-500 text-lg">Loading wishlist...</div>
+      </div>
+    )
+  }
+
    return (
+
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-4">

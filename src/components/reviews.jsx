@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Cookies from "js-cookie"
 import { useParams } from 'react-router-dom'
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function Reviews(props) {
   const {id} = useParams()
   const jwtToken = Cookies.get('jwt_token')
@@ -10,7 +12,7 @@ function Reviews(props) {
  const [comment, setComment] = useState("")
 
   async function onSubmitReview() {
-   const url = `http://localhost:5000/api/addReviews/${id}`
+   const url = `${apiUrl}/api/addReviews/${id}`
    const options = {
     method :"POST",
     headers : {

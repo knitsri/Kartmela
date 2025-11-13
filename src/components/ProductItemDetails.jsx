@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import Reviews from "./reviews";
 import Cookies from "js-cookie"
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function ProductItemDetails() {
+
   const navigate = useNavigate();
   const [product, setProductsData] = useState([])
   const [isLoading,setIsLoading] = useState(true)
@@ -19,6 +22,7 @@ function ProductItemDetails() {
   const jwtToken = Cookies.get('jwt_token')
 
 
+
   useEffect(() => {
     async function getBestSellersProductData(){
       const options = {
@@ -27,7 +31,7 @@ function ProductItemDetails() {
           "Authorization" : `Bearer ${jwtToken}`
         }
       }
-      const url = `http://localhost:5000/api/bestSellers/${id}`
+      const url = `${apiUrl}/api/bestSellers/${id}`
      const response = await fetch(url,options)
      const data = await response.json()
      console.log(data)
@@ -41,7 +45,7 @@ function ProductItemDetails() {
   },[])
 
    async function HandleAddToCart(){
-     const url = "http://localhost:5000/api/cart/addProduct"
+     const url = `${apiUrl}/api/cart/addProduct`
      const options = {
       method : "POST",
       headers : {
@@ -60,7 +64,7 @@ function ProductItemDetails() {
 
   async function handleWishlistBtn(){
         setIsLiked(prev => !prev)
-        const url= "http://localhost:5000/api/wishlist/addToWishlist"
+        const url= `${apiUrl}/api/wishlist/addToWishlist`
         const options = {
           method : "POST",
           headers : {
@@ -251,8 +255,6 @@ function ProductItemDetails() {
     </div>
     )
   }
-
-
 
   return (
     isLoading ? ( renderLoadingView() ) : (renderProductsView())

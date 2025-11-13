@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, Truck, RotateCcw, Shield } from 'lucide-react'
 import { Navigate } from 'react-router-dom'
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
 
 function Cart() {
   const jwtToken = Cookies.get('jwt_token')
@@ -14,7 +15,7 @@ function Cart() {
   
   useEffect(() => {
     async function getCartProducts(){
-       const url = "http://localhost:5000/api/cart/getProducts"
+       const url = `${apiUrl}/api/cart/getProducts`
        const options = {
         headers : {
             "Authorization" : `Bearer ${jwtToken}`
@@ -30,7 +31,7 @@ function Cart() {
   },[])
 
   async function handleIncrease(id) {
-    const url = `http://localhost:5000/api/cart/update/${id}`
+    const url = `${apiUrl}/api/cart/update/${id}`
     const options = {
         method : "PUT",
         headers : {
@@ -46,7 +47,7 @@ function Cart() {
   }
 
   async function handleDecrease(id){
-    const url = `http://localhost:5000/api/cart/update/${id}`
+    const url = `${apiUrl}/api/cart/update/${id}`
     const options = {
         method : "PUT",
         headers : {
@@ -68,7 +69,7 @@ function Cart() {
   }
 
   async function handleDelete(id){
-    const url= `http://localhost:5000/api/cart/deleteProduct/${id}`
+    const url= `${apiUrl}/api/cart/deleteProduct/${id}`
     const options = {
         "method" : "DELETE",
         headers : {
@@ -90,7 +91,7 @@ function Cart() {
         "AUthorization" : `Bearer ${jwtToken}`
        }
     }
-    const url = "http://localhost:5000/api/cart/clear"
+    const url = `${apiUrl}/api/cart/clear`
     await fetch(url,options)
     setCartProducts([])
   }
@@ -108,7 +109,7 @@ function Cart() {
       },
       body : JSON.stringify({products : cartProducts,totalPrice:total})
     }
-    const url = "http://localhost:5000/api/cart/place-orders"
+    const url = `${apiUrl}/api/cart/place-orders`
     const response = await fetch(url,options)
     if(response.ok){
          const ordersData = await response.json()

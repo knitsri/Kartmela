@@ -4,6 +4,9 @@ import Slider from "react-slick";
 import { useNavigate,Navigate } from "react-router-dom";
 import {useState} from 'react'
 import Cookies from "js-cookie"
+
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function SignUp() {
   const [username,setUsername] = useState('')
   const [email,setEmail] = useState('')
@@ -32,7 +35,7 @@ function SignUp() {
 
   async function onSubmitSignupForm(e){
     e.preventDefault()
-    const url = "http://localhost:5000/auth/api/register"
+    const url = `${apiUrl}/auth/api/register`
     const userDetails = {username,email,password}
     const options = {
       method : "POST",

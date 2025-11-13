@@ -6,6 +6,8 @@ import { useState } from "react";
 import Cookies from "js-cookie"
 import { Navigate } from "react-router-dom";
 
+const apiUrl = import.meta.env.VITE_Backend_URL;
+
 function Login() {
    const [username,setUsername] = useState('')
    const [password, setPassword] = useState('')
@@ -34,7 +36,7 @@ function Login() {
   async function onSubmitLoginForm(e){
     e.preventDefault()
     const userDetails = {username,password}
-    const url = "http://localhost:5000/auth/api/login"
+    const url = `${apiUrl}/auth/api/login`
     const options = {
       method : "POST",
       headers : {

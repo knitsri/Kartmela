@@ -15,6 +15,7 @@ import ContactUs from "./components/ContactUs"
 import PrivacyPolicy from "./components/PrivacyPolicy"
 import TermsOfService from "./components/TermsOfServices"
 import ProtectedRoute from "./components/ProtectedRoute"
+import NotFound from "./components/NotFound"
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/contact-us" element={<ContactUs/>}></Route>
         <Route path="/privacy-policy" element={<PrivacyPolicy/>}></Route>
         <Route path="/terms-of-services" element={<TermsOfService/>}></Route>
+        <Route path="*" element={<ProtectedRoute><NotFound/></ProtectedRoute>}/>
       </Routes>
 
      </BrowserRouter>

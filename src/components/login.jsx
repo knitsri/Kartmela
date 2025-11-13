@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Cookies from "js-cookie"
+import { Navigate } from "react-router-dom";
 
 function Login() {
    const [username,setUsername] = useState('')
@@ -52,6 +53,11 @@ function Login() {
        onSubmitFailure(data.message)
     }
   }
+
+  const token = Cookies.get("jwt_token")
+  if(token){
+    return <Navigate to="/" replace/>
+  }
    return(
       <div className=" h-screen bg-[#111827] text-white flex flex-row overflow-y-hidden">
          <div className="w-[50vw] h-full hidden lg:block">
@@ -99,11 +105,11 @@ function Login() {
         <form className="flex flex-col gap-4 w-2/3" onSubmit={onSubmitLoginForm}>
           <div className="flex flex-col">
             <label>Username</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter username"/>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter username" required/>
           </div>
           <div className="flex flex-col">
             <label>Password</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter password" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter password" required />
           </div>
           <button className="bg-white text-black font-semibold p-2 rounded mt-4">Log In</button>
           {showErrorMsg && <p className="pt-3 pb-3 text-red-500 text-center">{errMsg}</p>}

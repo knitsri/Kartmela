@@ -66,7 +66,6 @@ function ProductCategoryDetails() {
 
   async function handleWishlistBtn(id){
         setLikedProducts(prev => ({...prev,[id]:!prev[id]}))
-        // setIsLiked(prev => !prev)
         const url= "http://localhost:5000/api/wishlist/addToWishlist"
         const options = {
           method : "POST",

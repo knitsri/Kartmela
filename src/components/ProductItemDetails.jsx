@@ -201,7 +201,7 @@ function ProductItemDetails() {
                 <div key={index} className="border-b border-gray-200 pb-6 last:border-b-0">
                   <div className="flex items-center justify-between mb-3">
                     <span className="font-semibold text-gray-800">{review.username}</span>
-                    <span className="text-sm text-gray-500">{review.date}</span>
+                    <span className="text-sm text-gray-500">{new Date(review.createdAt).toLocaleDateString()}</span>
                   </div>
                   <p className="text-gray-700">{review.comment}</p>
                 </div>

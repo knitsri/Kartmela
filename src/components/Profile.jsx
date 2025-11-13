@@ -58,6 +58,7 @@ function ProfilePage() {
     }
     const url = "http://localhost:5000/auth/api/delete/user"
     await fetch(url,options)
+    Cookies.remove('jwt_token')
     navigate("/signup")
   }
 

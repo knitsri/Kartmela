@@ -12,6 +12,7 @@ import Footer from "./Footer";
 function Home() {
   const [bestSellersData, setBestSellersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [categories,setCategories] = useState([])
 
   const settings = {
     dots: true,
@@ -56,6 +57,17 @@ function Home() {
     getBestSellersData();
   }, []);
 
+  useEffect(() => {
+    async function getCategories() {
+      const url = "http://localhost:5000/api/category"
+      const response = await fetch(url)
+      const data = await response.json()
+      setCategories(data)
+      setIsLoading(false)
+    }
+    getCategories()
+  },[])
+
   return (
     <div className="overflow-x-hidden">
       <Navbar/>
@@ -63,8 +75,8 @@ function Home() {
         src="https://res.cloudinary.com/dndcaj4r2/image/upload/v1756378234/ChatGPT_Image_Aug_28_2025_04_19_50_PM_cmxsn4.png" 
         className='h-[50vh] lg:h-[70vh]  w-[100vw]'
       />
-      <div className="border border-pink-500 mt-5 py-2 text-center text-sm font-semibold text-[#341539] flex justify-center gap-6">
-        <div className="flex items-center gap-2">
+      <div className="border border-pink-500 mt-5 py-2  text-center text-sm font-semibold text-[#341539] flex justify-center gap-6 p-10 ">
+        <div className="flex items-center gap-2"> 
           <Truck className="h-4 w-4 text-pink-500" /> Fast Delivery
         </div>
         <div className="flex items-center gap-2">
@@ -76,7 +88,21 @@ function Home() {
       </div>
 
       <h1 className="font-bold mt-10 ml-10 text-[25px] mb-5">Collections</h1>
-      <Categories settings={settings}/>
+              {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-pulse text-pink-500 text-lg">Loading Categories...</div>
+          </div>
+        ) : (
+          <div className='px-8'>
+           <Slider {...settings}>
+            {categories.map((category) => (
+              <Categories key={category._id} category={category}/>
+            ))}
+          </Slider>
+          </div>
+
+        )}
+      {/* <Categories settings={settings}/> */}
       
       <div className="mt-16 px-10 mb-16">
         <h1 className="font-bold text-[25px] mb-8 text-center relative pb-3">

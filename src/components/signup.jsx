@@ -1,8 +1,9 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Navigate } from "react-router-dom";
 import {useState} from 'react'
+import Cookies from "js-cookie"
 function SignUp() {
   const [username,setUsername] = useState('')
   const [email,setEmail] = useState('')
@@ -48,6 +49,11 @@ function SignUp() {
     else{
       onSubmitFailure(data.message)
     }
+  }
+
+  const token = Cookies.get("jwt_token")
+  if(token){
+    return <Navigate to="/" replace/>
   }
 
    return(
@@ -96,15 +102,15 @@ function SignUp() {
         <form className="flex flex-col gap-4 w-2/3" onSubmit={onSubmitSignupForm}>
           <div className="flex flex-col">
             <label>Username</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter username" />
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter username" required/>
           </div>
           <div className="flex flex-col">
             <label>Email</label>
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter email"/>
+            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter email" required/>
           </div>
           <div className="flex flex-col">
             <label>Password</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter password"/>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border border-white p-2 bg-transparent rounded" placeholder="Enter password" required/>
           </div>
           <button className="bg-white text-black font-semibold p-2 rounded mt-4">Create Account</button>
           {showErrorMsg && <p className="pt-3 pb-3 text-red-500 text-center">{errorMsg}</p>}

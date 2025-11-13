@@ -3,6 +3,7 @@ import { useState , useEffect} from 'react'
 import Cookies from "js-cookie"
 import { useNavigate } from 'react-router-dom'
 import { Trash2, Plus, Minus, ShoppingBag, ArrowLeft, Truck, RotateCcw, Shield } from 'lucide-react'
+import { Navigate } from 'react-router-dom'
 
 
 function Cart() {
@@ -124,6 +125,7 @@ function Cart() {
       </div>
     )
   }
+
 
   return (
     <div className="min-h-screen bg-gray-50">
